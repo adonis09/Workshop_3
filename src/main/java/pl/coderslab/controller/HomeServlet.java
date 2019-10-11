@@ -21,7 +21,7 @@ public class HomeServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+
         SolutionDao solutionDao = new SolutionDao();
         String solutionsNumber = getServletContext().getInitParameter("number-solutions");
         Solution[] solutions = solutionDao.findRecent(Integer.parseInt(solutionsNumber));
