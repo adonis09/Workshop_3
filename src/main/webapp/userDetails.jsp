@@ -11,6 +11,7 @@
 <h3>Detailed information on user ${user.userName}</h3>
 
 Name: ${user.userName}
+<br>
 Email: ${user.email}
 
 <h4>Solutions submitted by user:</h4>

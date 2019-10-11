@@ -2,13 +2,32 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>details</title>
+    <title>solution details</title>
 </head>
 <body>
 
 <jsp:include page="WEB-INF/header.jsp"/>
 
-<h3>Details of the solution submitted by user ${pickedUser.userName}</h3>
+<h3>Details of the solution submitted by user:</h3>
+
+Name: ${pickedUser.userName}
+<br>
+Email: ${pickedUser.email}
+<br>
+<br>
+
+<table border="1px solid black">
+    <tr>
+        <th>Exercise title</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>${pickedExercise.title}</td>
+        <td>${pickedExercise.description}</td>
+    </tr>
+</table>
+
+<br>
 
 <table border="1px solid black">
     <tr>
@@ -36,6 +55,8 @@
         </td>
     </tr>
 </table>
+
+<jsp:include page="WEB-INF/footer.jsp"/>
 
 </body>
 </html>
