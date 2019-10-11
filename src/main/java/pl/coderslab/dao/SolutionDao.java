@@ -23,7 +23,7 @@ public class SolutionDao {
     private static final String FIND_ALL_SOLUTIONS_BY_EXERCISE_ID_QUERY =
             "SELECT * FROM solution WHERE exercise_id = ?";
     private static final String FIND_RECENT_SOLUTIONS_QUERY =
-            "SELECT * FROM solution ORDER BY created LIMIT ?; ";
+            "SELECT * FROM solution WHERE updated IS NOT NULL ORDER BY updated DESC LIMIT ?";
 
     public Solution create(Solution solution){
         try (Connection conn = DbUtil.getConnection()) {
@@ -177,6 +177,4 @@ public class SolutionDao {
             return null;
         }
     }
-
-
 }
