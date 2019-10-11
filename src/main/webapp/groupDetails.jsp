@@ -2,24 +2,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>groups</title>
+    <title>users</title>
 </head>
 <body>
 
 <jsp:include page="WEB-INF/header.jsp"/>
 
-<h3>All groups</h3>
+<h3>All users from group ${param.name}</h3>
 
 <table border="1px solid black">
     <tr>
-        <th>Group name</th>
+        <th>User name</th>
         <th>Action</th>
     </tr>
-    <c:forEach var="oneGroup" items="${groups}">
+    <c:forEach var="oneUser" items="${users}">
         <tr>
-            <td>${oneGroup.name}</td>
+            <td>${oneUser.userName}</td>
             <td>
-                <a href='<c:url value="/groupDetails?id=${oneGroup.id}&name=${oneGroup.name}"/>'>details</a>
+                <a href='<c:url value="/userDetails?id=${oneUser.id}"/>'>details</a>
             </td>
         </tr>
     </c:forEach>

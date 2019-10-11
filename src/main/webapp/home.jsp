@@ -15,7 +15,7 @@
         <th>Exercise title</th>
         <th>Solution author</th>
         <th>Submission date and time</th>
-        <th>Details</th>
+        <th>Action</th>
     </tr>
     <c:forEach var="oneSolution" items="${solutions}">
         <tr>
@@ -35,7 +35,7 @@
             </td>
             <td>${oneSolution.updated}</td>
             <td>
-                <a href='<c:url value="/details?id=${oneSolution.id}"/>'>-></a>
+                <a href='<c:url value="/details?id=${oneSolution.id}"/>'>details</a>
             </td>
         </tr>
     </c:forEach>
