@@ -21,19 +21,16 @@ public class HomeServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        Solution solution = new Solution();
+        
         SolutionDao solutionDao = new SolutionDao();
         String solutionsNumber = getServletContext().getInitParameter("number-solutions");
         Solution[] solutions = solutionDao.findRecent(Integer.parseInt(solutionsNumber));
         request.setAttribute("solutions", solutions);
 
-        User user = new User();
         UserDao userDao = new UserDao();
         User[] users = userDao.findAll();
         request.setAttribute("users", users);
 
-        Exercise exercise = new Exercise();
         ExerciseDao exerciseDao = new ExerciseDao();
         Exercise[] exercises = exerciseDao.findAll();
         request.setAttribute("exercises", exercises);
