@@ -8,21 +8,34 @@
 
 <jsp:include page="WEB-INF/header.jsp"/>
 
+<h3>Recently submitted solutions</h3>
+
 <table border="1px solid black">
     <tr>
         <th>Exercise title</th>
         <th>Solution author</th>
         <th>Submission date and time</th>
-        <th>...</th>
+        <th>Details</th>
     </tr>
-
     <c:forEach var="oneSolution" items="${solutions}">
         <tr>
-            <td>${oneSolution.exerciseId}</td>
-            <td>${oneSolution.userId}</td>
+            <td>
+                <c:forEach var="oneExercise" items="${exercises}">
+                    <c:if test="${oneSolution.exerciseId == oneExercise.id}">
+                        ${oneExercise.title}
+                    </c:if>
+                </c:forEach>
+            </td>
+            <td>
+                <c:forEach var="oneUser" items="${users}">
+                    <c:if test="${oneSolution.userId == oneUser.id}">
+                        ${oneUser.userName}
+                    </c:if>
+                </c:forEach>
+            </td>
             <td>${oneSolution.updated}</td>
             <td>
-                Details
+                <a href='<c:url value="/details?id=${oneSolution.id}"/>'>-></a>
             </td>
         </tr>
     </c:forEach>
