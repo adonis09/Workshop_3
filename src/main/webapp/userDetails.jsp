@@ -34,7 +34,7 @@ Email: ${user.email}
                 </td>
                 <td>${oneSolution.updated}</td>
                 <td>
-                    <a href='<c:url value="/details?id=${oneSolution.id}"/>'>details</a>
+                    <a href='<c:url value="/solutionDetails?id=${oneSolution.id}"/>'>details</a>
                 </td>
             </tr>
         </c:if>

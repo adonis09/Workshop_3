@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/details")
-public class DetailsServlet extends HttpServlet {
+@WebServlet("/solutionDetails")
+public class SolutionDetailsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -30,7 +30,7 @@ public class DetailsServlet extends HttpServlet {
         user = userDao.read(solution.getUserId());
         request.setAttribute("pickedUser", user);
 
-        getServletContext().getRequestDispatcher("/details.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/solutionDetails.jsp").forward(request, response);
 
     }
 }
