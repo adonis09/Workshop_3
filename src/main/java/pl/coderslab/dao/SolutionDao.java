@@ -17,11 +17,11 @@ public class SolutionDao {
     private static final String DELETE_SOLUTION_QUERY =
             "DELETE FROM solution WHERE id = ?";
     private static final String FIND_ALL_SOLUTIONS_QUERY =
-            "SELECT * FROM solution";
+            "SELECT * FROM solution ORDER BY updated DESC";
     private static final String FIND_ALL_SOLUTIONS_BY_USER_ID_QUERY =
-            "SELECT * FROM solution WHERE user_id = ?";
+            "SELECT * FROM solution WHERE user_id = ? ORDER BY updated DESC";
     private static final String FIND_ALL_SOLUTIONS_BY_EXERCISE_ID_QUERY =
-            "SELECT * FROM solution WHERE exercise_id = ?";
+            "SELECT * FROM solution WHERE exercise_id = ? ORDER BY updated DESC";
     private static final String FIND_RECENT_SOLUTIONS_QUERY =
             "SELECT * FROM solution WHERE updated IS NOT NULL ORDER BY updated DESC LIMIT ?";
 
