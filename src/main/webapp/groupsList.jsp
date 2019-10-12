@@ -35,7 +35,7 @@
             <td>${oneGroup.name}</td>
             <td>
                 <a href='<c:url value="/editGroup?editId=${oneGroup.id}"/>'>edit</a>
-                <a href='<c:url value="/groupDel?deleteId=${oneGroup.id}"/>'>delete</a>
+                <a href='<c:url value="/deleteGroup?deleteId=${oneGroup.id}"/>'>delete</a>
             </td>
         </tr>
     </c:forEach>
