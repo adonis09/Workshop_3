@@ -10,15 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/exercisesList")
-public class ExercisesListServlet extends HttpServlet {
+@WebServlet("/editExercise")
+public class EditExerciseServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         ExerciseDao exerciseDao = new ExerciseDao();
-        String exerciseTitle = request.getParameter("title");
-        String exerciseDescription = request.getParameter("description");
-        Exercise exercise = new Exercise(exerciseTitle, exerciseDescription);
-        exerciseDao.create(exercise);
+        int editExerciseId = Integer.parseInt(request.getParameter("editId"));
+        Exercise exercise = exerciseDao.read(editExerciseId);
+        String editExerciseNewName = request.getParameter("title");
+        String editExerciseNewDescription = request.getParameter("description");
+        exercise.setTitle(editExerciseNewName);
+        exercise.setDescription(editExerciseNewDescription);
+        exerciseDao.update(exercise);
         response.sendRedirect("/exercisesList");
 
     }
@@ -28,6 +31,10 @@ public class ExercisesListServlet extends HttpServlet {
         ExerciseDao exerciseDao = new ExerciseDao();
         Exercise[] allExercises = exerciseDao.findAll();
         request.setAttribute("exercises", allExercises);
+
+        int idToEdit = Integer.parseInt(request.getParameter("editId"));
+        Exercise exerciseToEdit = exerciseDao.read(idToEdit);
+        request.setAttribute("editExercise", exerciseToEdit);
         getServletContext().getRequestDispatcher("/exercisesList.jsp").forward(request, response);
 
     }

@@ -10,7 +10,6 @@
 
 <h3>All groups administration</h3>
 
-
 <c:if test="${not empty editGroup.name}">
     <h4>Edit existing group</h4>
     <form action="/editGroup" method="POST">
