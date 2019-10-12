@@ -11,15 +11,19 @@
 <h3>All groups administration</h3>
 
 <h4>Add new group</h4>
-<form action="/groupsList" method="POST">
-    Name: <input type="text" name="name"
-        <c:if test="${not empty editGroup.name}">
-                         placeholder="${editGroup.name}"
-        </c:if>
-            >
-    <input type="submit" value="Submit">
-</form>
-
+<c:if test="${not empty editGroup.name}">
+    <form action="/editGroup" method="POST">
+        Name: <input type="text" name="name" value="${editGroup.name}">
+        <input type="hidden" name="editId" value="${editGroup.id}">
+        <input type="submit" value="Submit">
+    </form>
+</c:if>
+<c:if test="${empty editGroup.name}">
+    <form action="/groupsList" method="POST">
+        Name: <input type="text" name="name">
+        <input type="submit" value="Submit">
+    </form>
+</c:if>
 <h4>All groups</h4>
 <table border="1px solid black">
     <tr>

@@ -21,7 +21,6 @@ public class DeleteGroupServlet extends HttpServlet {
         GroupDao groupDao = new GroupDao();
         int idToDelete = Integer.parseInt(request.getParameter("deleteId"));
         groupDao.delete(idToDelete);
-
         response.sendRedirect("/groupsList");
 
     }

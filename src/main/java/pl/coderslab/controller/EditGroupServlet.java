@@ -14,11 +14,22 @@ import java.io.IOException;
 public class EditGroupServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        GroupDao groupDao = new GroupDao();
+        int editGroupId = Integer.parseInt(request.getParameter("editId"));
+        Group group = groupDao.read(editGroupId);
+        String editGroupNewName = request.getParameter("name");
+        group.setName(editGroupNewName);
+        groupDao.update(group);
+        response.sendRedirect("/groupsList");
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         GroupDao groupDao = new GroupDao();
+        Group[] allGroups = groupDao.findAll();
+        request.setAttribute("groups", allGroups);
+
         int idToEdit = Integer.parseInt(request.getParameter("editId"));
         Group groupToEdit = groupDao.read(idToEdit);
         request.setAttribute("editGroup", groupToEdit);
