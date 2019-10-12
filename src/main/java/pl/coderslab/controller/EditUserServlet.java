@@ -1,6 +1,8 @@
 package pl.coderslab.controller;
 
+import pl.coderslab.dao.GroupDao;
 import pl.coderslab.dao.UserDao;
+import pl.coderslab.model.Group;
 import pl.coderslab.model.User;
 
 import javax.servlet.ServletException;
@@ -20,15 +22,22 @@ public class EditUserServlet extends HttpServlet {
         String editUserNewName = request.getParameter("name");
         String editUserNewEmail = request.getParameter("email");
         String editUserNewPassword = request.getParameter("password");
+        String groupIdString = (request.getParameter("groupId"));
+        int editUserNewGroupId = Integer.parseInt(groupIdString);
         user.setUserName(editUserNewName);
         user.setEmail(editUserNewEmail);
         user.setPassword(editUserNewPassword);
+        user.setUserGroupId(editUserNewGroupId);
         userDao.update(user);
         response.sendRedirect("/usersList");
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        GroupDao groupDao = new GroupDao();
+        Group[] allGroups = groupDao.findAll();
+        request.setAttribute("groups", allGroups);
 
         UserDao userDao = new UserDao();
         User[] allUsers = userDao.findAll();
