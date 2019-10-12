@@ -2,5 +2,5 @@
 
 <a href='<c:url value="/"/>'>Home page</a>
 <a href='<c:url value="/groups"/>'>Groups</a>
-<a href='<c:url value="/"/>'>Administration panel</a>
+<a href='<c:url value="/panelAdmin"/>'>Administration panel</a>
 <br>

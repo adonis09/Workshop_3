@@ -1,7 +1,9 @@
 package pl.coderslab.controller;
 
+import pl.coderslab.dao.ExerciseDao;
 import pl.coderslab.dao.SolutionDao;
 import pl.coderslab.dao.UserDao;
+import pl.coderslab.model.Exercise;
 import pl.coderslab.model.Solution;
 import pl.coderslab.model.User;
 
@@ -25,9 +27,12 @@ public class SolutionDetailsServlet extends HttpServlet {
         Solution solution = solutionDao.read(id);
         request.setAttribute("pickedSolution", solution);
 
-        User user = new User();
+        ExerciseDao exerciseDao = new ExerciseDao();
+        Exercise exercise = exerciseDao.read(solution.getExerciseId());
+        request.setAttribute("pickedExercise", exercise);
+
         UserDao userDao = new UserDao();
-        user = userDao.read(solution.getUserId());
+        User user = userDao.read(solution.getUserId());
         request.setAttribute("pickedUser", user);
 
         getServletContext().getRequestDispatcher("/solutionDetails.jsp").forward(request, response);
