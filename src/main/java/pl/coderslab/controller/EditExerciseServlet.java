@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/editExercise")
 public class EditExerciseServlet extends HttpServlet {
@@ -29,7 +30,7 @@ public class EditExerciseServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         ExerciseDao exerciseDao = new ExerciseDao();
-        Exercise[] allExercises = exerciseDao.findAll();
+        List<Exercise> allExercises = exerciseDao.findAll();
         request.setAttribute("exercises", allExercises);
 
         int idToEdit = Integer.parseInt(request.getParameter("editId"));

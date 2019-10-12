@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/")
 public class HomeServlet extends HttpServlet {
@@ -24,15 +25,15 @@ public class HomeServlet extends HttpServlet {
 
         SolutionDao solutionDao = new SolutionDao();
         String solutionsNumber = getServletContext().getInitParameter("number-solutions");
-        Solution[] solutions = solutionDao.findRecent(Integer.parseInt(solutionsNumber));
+        List<Solution> solutions = solutionDao.findRecent(Integer.parseInt(solutionsNumber));
         request.setAttribute("solutions", solutions);
 
         UserDao userDao = new UserDao();
-        User[] users = userDao.findAll();
+        List <User> users = userDao.findAll();
         request.setAttribute("users", users);
 
         ExerciseDao exerciseDao = new ExerciseDao();
-        Exercise[] exercises = exerciseDao.findAll();
+        List <Exercise> exercises = exerciseDao.findAll();
         request.setAttribute("exercises", exercises);
 
         getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);

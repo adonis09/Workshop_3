@@ -1,11 +1,11 @@
 package pl.coderslab.dao;
 
-
 import pl.coderslab.utils.DbUtil;
 import pl.coderslab.model.Group;
 
 import java.sql.*;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GroupDao {
 
@@ -76,22 +76,16 @@ public class GroupDao {
         }
     }
 
-    private Group[] addToArray(Group g, Group[] groups) {
-        Group[] tmpGroups = Arrays.copyOf(groups, groups.length + 1);
-        tmpGroups[groups.length] = g;
-        return tmpGroups;
-    }
-
-    public Group[] findAll() {
+    public List<Group> findAll() {
         try (Connection conn = DbUtil.getConnection()) {
-            Group[] groups = new Group[0];
+            List<Group> groups = new ArrayList<>();
             PreparedStatement statement = conn.prepareStatement(FIND_ALL_GROUPS_QUERY);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Group group = new Group();
                 group.setId(resultSet.getInt("id"));
                 group.setName(resultSet.getString("name"));
-                groups = addToArray(group, groups);
+                groups.add(group);
             }
             return groups;
         } catch (SQLException e) {
@@ -99,5 +93,4 @@ public class GroupDao {
             return null;
         }
     }
-
 }

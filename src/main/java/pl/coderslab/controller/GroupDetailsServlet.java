@@ -1,6 +1,5 @@
 package pl.coderslab.controller;
 
-import pl.coderslab.dao.GroupDao;
 import pl.coderslab.dao.UserDao;
 import pl.coderslab.model.User;
 
@@ -10,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/groupDetails")
 public class GroupDetailsServlet extends HttpServlet {
@@ -21,7 +21,7 @@ public class GroupDetailsServlet extends HttpServlet {
 
         UserDao userDao = new UserDao();
         int groupId = Integer.parseInt(request.getParameter("id"));
-        User[] groupUsers = userDao.findAllByGroupId(groupId);
+        List<User> groupUsers = userDao.findAllByGroupId(groupId);
         request.setAttribute("users", groupUsers);
 
         getServletContext().getRequestDispatcher("/groupDetails.jsp").forward(request, response);

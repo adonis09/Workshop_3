@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/usersList")
 public class UsersListServlet extends HttpServlet {
@@ -30,11 +31,11 @@ public class UsersListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         GroupDao groupDao = new GroupDao();
-        Group[] allGroups = groupDao.findAll();
+        List<Group> allGroups = groupDao.findAll();
         request.setAttribute("groups", allGroups);
 
         UserDao userDao = new UserDao();
-        User[] allUsers = userDao.findAll();
+        List<User> allUsers = userDao.findAll();
         request.setAttribute("users", allUsers);
         getServletContext().getRequestDispatcher("/usersList.jsp").forward(request, response);
 

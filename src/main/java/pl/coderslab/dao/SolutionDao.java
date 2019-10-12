@@ -4,7 +4,8 @@ import pl.coderslab.utils.DbUtil;
 import pl.coderslab.model.Solution;
 
 import java.sql.*;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SolutionDao {
 
@@ -25,7 +26,7 @@ public class SolutionDao {
     private static final String FIND_RECENT_SOLUTIONS_QUERY =
             "SELECT * FROM solution WHERE updated IS NOT NULL ORDER BY updated DESC LIMIT ?";
 
-    public Solution create(Solution solution){
+    public Solution create(Solution solution) {
         try (Connection conn = DbUtil.getConnection()) {
             PreparedStatement statement =
                     conn.prepareStatement(CREATE_SOLUTION_QUERY, Statement.RETURN_GENERATED_KEYS);
@@ -48,7 +49,7 @@ public class SolutionDao {
         }
     }
 
-    public Solution read(int solutionId){
+    public Solution read(int solutionId) {
         try (Connection conn = DbUtil.getConnection()) {
             PreparedStatement statement =
                     conn.prepareStatement(READ_SOLUTION_QUERY, Statement.RETURN_GENERATED_KEYS);
@@ -105,20 +106,14 @@ public class SolutionDao {
         }
     }
 
-    private Solution[] addToArray(Solution e, Solution[] solutions) {
-        Solution[] tmpSolutions = Arrays.copyOf(solutions, solutions.length + 1);
-        tmpSolutions[solutions.length] = e;
-        return tmpSolutions;
-    }
-
-    public Solution[] findAll() {
+    public List<Solution> findAll() {
         try (Connection conn = DbUtil.getConnection()) {
-            Solution[] solutions = new Solution[0];
+            List<Solution> solutions = new ArrayList<>();
             PreparedStatement statement = conn.prepareStatement(FIND_ALL_SOLUTIONS_QUERY);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Solution solution = makeSolutionFromResultSet(resultSet);
-                solutions = addToArray(solution, solutions);
+                solutions.add(solution);
             }
             return solutions;
         } catch (SQLException e) {
@@ -127,15 +122,15 @@ public class SolutionDao {
         }
     }
 
-    public Solution[] findAllByUserId(int userId) {
+    public List<Solution> findAllByUserId(int userId) {
         try (Connection conn = DbUtil.getConnection()) {
-            Solution[] solutions = new Solution[0];
+            List<Solution> solutions = new ArrayList<>();
             PreparedStatement statement = conn.prepareStatement(FIND_ALL_SOLUTIONS_BY_USER_ID_QUERY);
             statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Solution solution = makeSolutionFromResultSet(resultSet);
-                solutions = addToArray(solution, solutions);
+                solutions.add(solution);
             }
             return solutions;
         } catch (SQLException e) {
@@ -144,15 +139,15 @@ public class SolutionDao {
         }
     }
 
-    public Solution[] findAllByExerciseId(int exerciseId) {
+    public List<Solution> findAllByExerciseId(int exerciseId) {
         try (Connection conn = DbUtil.getConnection()) {
-            Solution[] solutions = new Solution[0];
+            List<Solution> solutions = new ArrayList<>();
             PreparedStatement statement = conn.prepareStatement(FIND_ALL_SOLUTIONS_BY_EXERCISE_ID_QUERY);
             statement.setInt(1, exerciseId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Solution solution = makeSolutionFromResultSet(resultSet);
-                solutions = addToArray(solution, solutions);
+                solutions.add(solution);
             }
             return solutions;
         } catch (SQLException e) {
@@ -161,15 +156,15 @@ public class SolutionDao {
         }
     }
 
-    public Solution[] findRecent(int limit){
+    public List<Solution> findRecent(int limit) {
         try (Connection conn = DbUtil.getConnection()) {
-            Solution[] solutions = new Solution[0];
+            List<Solution> solutions = new ArrayList<>();
             PreparedStatement statement = conn.prepareStatement(FIND_RECENT_SOLUTIONS_QUERY);
             statement.setInt(1, limit);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Solution solution = makeSolutionFromResultSet(resultSet);
-                solutions = addToArray(solution, solutions);
+                solutions.add(solution);
             }
             return solutions;
         } catch (SQLException e) {

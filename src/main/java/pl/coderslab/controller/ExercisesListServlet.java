@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/exercisesList")
 public class ExercisesListServlet extends HttpServlet {
@@ -26,7 +27,7 @@ public class ExercisesListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         ExerciseDao exerciseDao = new ExerciseDao();
-        Exercise[] allExercises = exerciseDao.findAll();
+        List<Exercise> allExercises = exerciseDao.findAll();
         request.setAttribute("exercises", allExercises);
         getServletContext().getRequestDispatcher("/exercisesList.jsp").forward(request, response);
 

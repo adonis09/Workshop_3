@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/userDetails")
 public class UserDetailsServlet extends HttpServlet {
@@ -28,11 +29,11 @@ public class UserDetailsServlet extends HttpServlet {
         request.setAttribute("user", user);
 
         SolutionDao solutionDao = new SolutionDao();
-        Solution[] allUsersSolutions = solutionDao.findAllByUserId(userId);
+        List<Solution> allUsersSolutions = solutionDao.findAllByUserId(userId);
         request.setAttribute("solutions", allUsersSolutions);
 
         ExerciseDao exerciseDao = new ExerciseDao();
-        Exercise[] allExercises = exerciseDao.findAll();
+        List<Exercise> allExercises = exerciseDao.findAll();
         request.setAttribute("exercises", allExercises);
 
         getServletContext().getRequestDispatcher("/userDetails.jsp").forward(request, response);
