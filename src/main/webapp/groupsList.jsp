@@ -10,7 +10,7 @@
 
 <h3>All groups administration</h3>
 
-<c:if test="${not empty editGroup.name}">
+<c:if test="${not empty editGroup}">
     <h4>Edit existing group</h4>
     <form action="/editGroup" method="POST">
         Name: <input type="text" name="name" value="${editGroup.name}">
@@ -18,7 +18,7 @@
         <input type="submit" value="Submit">
     </form>
 </c:if>
-<c:if test="${empty editGroup.name}">
+<c:if test="${empty editGroup}">
     <h4>Add new group</h4>
     <form action="/groupsList" method="POST">
         Name: <input type="text" name="name">

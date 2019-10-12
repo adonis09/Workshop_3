@@ -10,7 +10,7 @@
 
 <h3>All users administration</h3>
 
-<c:if test="${not empty editUser.userName}">
+<c:if test="${not empty editUser}">
     <h4>Edit existing user</h4>
     <form action="/editUser" method="POST">
         Name: <input type="text" name="name" value="${editUser.userName}">
@@ -30,7 +30,7 @@
         <input type="submit" value="Submit">
     </form>
 </c:if>
-<c:if test="${empty editUser.userName}">
+<c:if test="${empty editUser}">
     <h4>Add new user</h4>
     <form action="/usersList" method="POST">
         Name: <input type="text" name="name">
