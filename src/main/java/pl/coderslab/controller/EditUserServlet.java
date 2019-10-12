@@ -1,8 +1,6 @@
 package pl.coderslab.controller;
 
-import pl.coderslab.dao.GroupDao;
 import pl.coderslab.dao.UserDao;
-import pl.coderslab.model.Group;
 import pl.coderslab.model.User;
 
 import javax.servlet.ServletException;
@@ -12,30 +10,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/usersList")
-public class UsersListServlet extends HttpServlet {
+@WebServlet("/editUser")
+public class EditUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         UserDao userDao = new UserDao();
-        String userName = request.getParameter("name");
-        String userEmail = request.getParameter("email");
-        String userPassword = request.getParameter("password");
-        int userGroup = Integer.parseInt(request.getParameter("group"));
-        User user = new User(userName, userEmail, userPassword, userGroup);
-        userDao.create(user);
+        int editUserId = Integer.parseInt(request.getParameter("editId"));
+        User user = userDao.read(editUserId);
+        String editUserNewName = request.getParameter("name");
+        String editUserNewEmail = request.getParameter("email");
+        String editUserNewPassword = request.getParameter("password");
+        user.setUserName(editUserNewName);
+        user.setEmail(editUserNewEmail);
+        user.setPassword(editUserNewPassword);
+        userDao.update(user);
         response.sendRedirect("/usersList");
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        GroupDao groupDao = new GroupDao();
-        Group[] allGroups = groupDao.findAll();
-        request.setAttribute("groups", allGroups);
-
         UserDao userDao = new UserDao();
         User[] allUsers = userDao.findAll();
         request.setAttribute("users", allUsers);
+
+        int idToEdit = Integer.parseInt(request.getParameter("editId"));
+        User userToEdit = userDao.read(idToEdit);
+        request.setAttribute("editUser", userToEdit);
         getServletContext().getRequestDispatcher("/usersList.jsp").forward(request, response);
 
     }

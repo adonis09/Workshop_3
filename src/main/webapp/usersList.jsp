@@ -8,34 +8,45 @@
 
 <jsp:include page="WEB-INF/header.jsp"/>
 
-<h3>All users</h3>
+<h3>All users administration</h3>
 
+<h4>Add new user</h4>
+<c:if test="${not empty editUser.userName}">
+    <form action="/editUser" method="POST">
+        Name: <input type="text" name="name" value="${editUser.userName}">
+        Email: <input type="email" name="email" value="${editUser.email}">
+        Password: <input type="password" name="password" value="${editUser.password}">
+        <input type="hidden" name="editId" value="${editUser.id}">
+        <input type="submit" value="Submit">
+    </form>
+</c:if>
+<c:if test="${empty editUser.userName}">
+    <form action="/usersList" method="POST">
+        Name: <input type="text" name="name">
+        Email: <input type="email" name="email">
+        Password: <input type="password" name="password">
+        Group: <select name="group">
+            <c:forEach var="oneGroup" items="${groups}">
+                <option value="${oneGroup.id}">${oneGroup.name}</option>
+            </c:forEach>
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+</c:if>
+<h4>All users</h4>
 <table border="1px solid black">
     <tr>
-        <th>Exercise title</th>
-        <th>Solution author</th>
-        <th>Submission date and time</th>
+        <th>Name</th>
+        <th>Email</th>
         <th>Action</th>
     </tr>
-    <c:forEach var="oneSolution" items="${solutions}">
+    <c:forEach var="oneUser" items="${users}">
         <tr>
+            <td>${oneUser.userName}</td>
+            <td>${oneUser.email}</td>
             <td>
-                <c:forEach var="oneExercise" items="${exercises}">
-                    <c:if test="${oneSolution.exerciseId == oneExercise.id}">
-                        ${oneExercise.title}
-                    </c:if>
-                </c:forEach>
-            </td>
-            <td>
-                <c:forEach var="oneUser" items="${users}">
-                    <c:if test="${oneSolution.userId == oneUser.id}">
-                        ${oneUser.userName}
-                    </c:if>
-                </c:forEach>
-            </td>
-            <td>${oneSolution.updated}</td>
-            <td>
-                <a href='<c:url value="/solutionDetails?id=${oneSolution.id}"/>'>details</a>
+                <a href='<c:url value="/editUser?editId=${oneUser.id}"/>'>edit</a>
+                <a href='<c:url value="/deleteUser?deleteId=${oneUser.id}"/>'>delete</a>
             </td>
         </tr>
     </c:forEach>
